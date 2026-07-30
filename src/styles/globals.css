@@ -1,0 +1,204 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+
+   One dark theme, taken straight off the team logo: near-black plate, deep
+   navy structure, light-blue signal, white highlights. Surfaces are flat with
+   hairline borders rather than heavy frosted glass — the visual interest comes
+   from the network graph and the type, not from stacked blur layers.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* Page */
+  --color-canvas: oklch(0.155 0.014 268);
+  --color-canvas-deep: oklch(0.115 0.012 268);
+
+  /* Raised surfaces */
+  --color-surface: oklch(0.205 0.019 268);
+  --color-surface-high: oklch(0.245 0.023 268);
+
+  /* Text — every value measured for WCAG AA against canvas and surface */
+  --color-ink: oklch(0.975 0.003 260);
+  --color-ink-soft: oklch(0.822 0.011 260);
+  --color-ink-faint: oklch(0.688 0.014 262);
+
+  /* Hairlines */
+  --color-edge: oklch(0.98 0.01 260 / 0.1);
+  --color-edge-strong: oklch(0.98 0.01 260 / 0.2);
+
+  /* Logo colours */
+  --color-signal: oklch(0.795 0.104 226); /* light blue — top row of the mark */
+  --color-signal-dim: oklch(0.795 0.104 226 / 0.14);
+  --color-node: oklch(0.372 0.101 271); /* deep navy — middle row */
+  --color-node-high: oklch(0.46 0.11 271);
+
+  /* Form errors. The logo has no warning colour, so this is the one addition. */
+  --color-danger: oklch(0.735 0.153 24);
+  --color-danger-dim: oklch(0.735 0.153 24 / 0.14);
+
+  --shadow-panel: 0 1px 2px oklch(0 0 0 / 0.4), 0 12px 32px -16px oklch(0 0 0 / 0.6);
+  --shadow-lift: 0 2px 6px oklch(0 0 0 / 0.45), 0 24px 56px -24px oklch(0 0 0 / 0.75);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  /* Browser-native smooth scrolling for in-page anchors. */
+  scroll-behavior: smooth;
+  /* Keep anchor targets clear of the sticky navigation bar. */
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /*
+   * Names, spec values, email addresses and long placeholder tokens are all
+   * single unbreakable words. `anywhere` (rather than `break-word`) also lowers
+   * an element's min-content width, so one long word cannot widen a flex or grid
+   * track and push the page sideways on a narrow phone. Prose is unaffected — a
+   * break only happens when a word genuinely cannot fit.
+   */
+  overflow-wrap: anywhere;
+}
+
+::selection {
+  background-color: var(--color-signal);
+  color: var(--color-canvas-deep);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   Framer Motion is additionally wrapped in <MotionConfig reducedMotion="user">,
+   which covers JS-driven transforms. This block covers CSS-driven motion.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Helpers
+--------------------------------------------------------------------------- */
+
+/* Faint engineering grid. Used at low opacity behind content. */
+@utility blueprint {
+  background-image:
+    linear-gradient(to right, var(--color-edge) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-edge) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+}
+
+/*
+ * Keeps the hero network graph clear of the headline.
+ *
+ * On phones the copy spans the full width, so the graph is faint and fades out
+ * downward. From `lg` up there is empty space to the right of the text, so the
+ * graph strengthens toward that side and stays out from under the words.
+ */
+.hero-graph {
+  opacity: 0.4;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 92%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 92%);
+}
+
+@media (min-width: 64rem) {
+  .hero-graph {
+    opacity: 0.85;
+    mask-image:
+      linear-gradient(to right, transparent 32%, black 72%),
+      linear-gradient(to bottom, black 55%, transparent 100%);
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 32%, black 72%),
+      linear-gradient(to bottom, black 55%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+  }
+}
+
+/*
+ * A light sweep across a primary button on hover. Pure CSS so it costs nothing,
+ * and it reads as a surface catching light rather than as a bouncy animation.
+ */
+@utility sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    oklch(1 0 0 / 0.35) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+
+.sheen:hover::after {
+  transform: translateX(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheen::after {
+    display: none;
+  }
+}
+
+/* Small uppercase monospace label — section kickers and spec keys. */
+@utility kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}

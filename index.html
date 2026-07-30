@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- The team logo doubles as the favicon and the Apple touch icon. -->
+    <link rel="icon" type="image/png" href="/team-logo.png" />
+    <link rel="apple-touch-icon" href="/team-logo.png" />
+
+    <!--
+      No <title> or <meta name="description"> here on purpose.
+
+      React Helmet Async v3 renders those as ordinary elements and relies on
+      React 19 hoisting them into the head. React does not dedupe them against
+      tags that were already in this file, so anything declared here would end
+      up duplicated alongside the real per-route values. <Seo> in
+      src/components/layout/Seo.tsx owns the title and description for every
+      route, including the 404 page.
+    -->
+    <!-- The site is dark-only, matching the team mark. -->
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#12141c" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
