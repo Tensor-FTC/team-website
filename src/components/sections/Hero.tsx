@@ -159,7 +159,7 @@ export function Hero() {
                 text={teamConfig.slogan}
                 immediate
                 stagger={70}
-                className="display mt-6 text-3xl text-ink sm:text-4xl lg:text-5xl"
+                className="display mt-6 text-[1.75rem] text-ink sm:text-4xl lg:text-[2.75rem]"
               />
             </motion.div>
 

@@ -91,7 +91,7 @@ export function ComingSoon({ kicker, title, description, actions, className }: C
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={transitions.base}
-        className="display mt-4 text-4xl text-ink sm:text-6xl"
+        className="display mt-4 text-3xl text-ink sm:text-5xl"
       >
         {/* The name resolves out of noise — the panel is announcing something
             that is not finished yet, and this is what that looks like. */}

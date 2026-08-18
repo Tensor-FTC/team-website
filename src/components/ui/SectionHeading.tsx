@@ -64,7 +64,7 @@ export function SectionHeading({
         stagger={45}
         className={cn(
           'display text-ink',
-          level === 'h2' ? 'text-3xl sm:text-4xl lg:text-[2.75rem]' : 'text-2xl sm:text-3xl',
+          level === 'h2' ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-xl sm:text-2xl',
         )}
       />
 

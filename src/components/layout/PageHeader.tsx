@@ -36,7 +36,7 @@ export function PageHeader({ kicker, title, description, actions, meta }: PageHe
             text={title}
             immediate
             stagger={55}
-            className="display mt-5 text-4xl text-ink sm:text-5xl lg:text-[3.5rem]"
+            className="display mt-5 text-3xl text-ink sm:text-4xl lg:text-5xl"
           />
         </motion.div>
 
