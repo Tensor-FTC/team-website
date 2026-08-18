@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ImageIcon, type LucideIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
+import { asset } from '../../config/asset'
 import { useParallax } from '../../hooks/useParallax'
 import { cn } from './cn'
 
@@ -61,7 +62,7 @@ export function MediaFrame({
         </div>
       ) : (
         <motion.img
-          src={src}
+          src={asset(src)}
           alt={alt}
           loading="lazy"
           decoding="async"

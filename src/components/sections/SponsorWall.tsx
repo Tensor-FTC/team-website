@@ -8,6 +8,7 @@ import {
   sponsorshipLevels,
   type Sponsor,
 } from '../../data/sponsors'
+import { asset } from '../../config/asset'
 import { Section } from '../layout/Section'
 import { Panel } from '../ui/Panel'
 import { Pill } from '../ui/Pill'
@@ -27,7 +28,7 @@ function SponsorCard({ sponsor, featured }: { sponsor: Sponsor; featured: boolea
       >
         {sponsor.logo ? (
           <img
-            src={sponsor.logo}
+            src={asset(sponsor.logo)}
             alt={`${sponsor.name} logo`}
             loading="lazy"
             decoding="async"

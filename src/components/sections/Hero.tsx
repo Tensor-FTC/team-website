@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { asset } from '../../config/asset'
 import { heroContainer, heroItem } from '../../config/motion'
 import { hasTeamNumber, organisation, seasonLabel, teamConfig } from '../../config/teamConfig'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
@@ -50,7 +51,7 @@ function IdentityPlate() {
         ))}
 
         <img
-          src={teamConfig.logoPath}
+          src={asset(teamConfig.logoPath)}
           alt={teamConfig.teamName}
           width={606}
           height={630}

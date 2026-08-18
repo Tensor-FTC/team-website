@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { asset } from '../../config/asset'
 import { hasTeamNumber, teamConfig } from '../../config/teamConfig'
 import { cn } from './cn'
 
@@ -94,7 +95,7 @@ export function TeamLogo({
         <MarkFallback size={size} />
       ) : (
         <img
-          src={teamConfig.logoPath}
+          src={asset(teamConfig.logoPath)}
           width={size}
           height={size}
           alt={showName ? '' : teamConfig.teamName}

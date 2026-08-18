@@ -6,6 +6,13 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 5173
+    },
+    {
+      "//": "Serves a production build under the GitHub Pages sub-path, which is the only way to catch asset URLs that are correct at the domain root and broken at /team-website/. Build first: VITE_BASE=/team-website/ npm run build",
+      "name": "team-website-pages",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "preview", "--base=/team-website/", "--port", "4173"],
+      "port": 4173
     }
   ]
 }
