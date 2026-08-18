@@ -1,32 +1,39 @@
-import { Check, Mail } from 'lucide-react'
+import { ArrowUpRight, Check, GitBranch, Mail } from 'lucide-react'
 import { teamConfig } from '../../config/teamConfig'
-import { ftcHub, resources } from '../../data/resources'
+import { ftcHome, resources } from '../../data/resources'
 import { Section } from '../layout/Section'
 import { ButtonExternal } from '../ui/Button'
 import { ComingSoon } from '../ui/ComingSoon'
 import { Panel } from '../ui/Panel'
 import { Pill } from '../ui/Pill'
-import { RevealGroup, RevealItem } from '../ui/Reveal'
+import { Reveal, RevealGroup, RevealItem } from '../ui/Reveal'
 import { SectionHeading } from '../ui/SectionHeading'
 
-/** The FTCHub feature block: reveal notice, the problem, and what ships first. */
-export function FtcHubFeature() {
+/** The FTCHome feature block: reveal notice, the problem, and what ships first. */
+export function FtcHomeFeature() {
   return (
     <>
-      <Section spacing="md" id="ftchub">
+      <Section spacing="md" id="ftchome">
         <ComingSoon
           kicker="Our software"
-          title={ftcHub.name}
-          description={ftcHub.tagline}
+          title={ftcHome.name}
+          description={ftcHome.tagline}
           actions={
-            <ButtonExternal
-              href={`mailto:${teamConfig.email}?subject=${encodeURIComponent(
-                'FTCHub — early access',
-              )}`}
-            >
-              <Mail aria-hidden="true" className="size-4" />
-              Ask for early access
-            </ButtonExternal>
+            <>
+              <ButtonExternal href={ftcHome.repo}>
+                <GitBranch aria-hidden="true" className="size-4" />
+                View the code
+              </ButtonExternal>
+              <ButtonExternal
+                variant="secondary"
+                href={`mailto:${teamConfig.email}?subject=${encodeURIComponent(
+                  'FTCHome — early access',
+                )}`}
+              >
+                <Mail aria-hidden="true" className="size-4" />
+                Ask for early access
+              </ButtonExternal>
+            </>
           }
         />
       </Section>
@@ -37,17 +44,17 @@ export function FtcHubFeature() {
             <SectionHeading
               kicker="Why we are building it"
               title="Running a team is a bookkeeping problem"
-              description={ftcHub.description}
+              description={ftcHome.description}
             />
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
-              {ftcHub.secondaryDescription}
+              {ftcHome.secondaryDescription}
             </p>
           </div>
 
           <div className="min-w-0">
             <h3 className="kicker">In the first release</h3>
             <RevealGroup as="ul" className="mt-5 border-t border-edge">
-              {ftcHub.features.map((feature) => (
+              {ftcHome.features.map((feature) => (
                 <RevealItem as="li" key={feature.title} className="min-w-0 border-b border-edge py-4">
                   <div className="flex items-start gap-3">
                     <Check
@@ -81,6 +88,24 @@ export function ResourceList() {
         title="What else we will share"
         description="We are a rookie team, so most of this does not exist yet. It will as our first season goes on."
       />
+
+      {teamConfig.socialLinks.github && (
+        <Reveal className="mt-6">
+          <a
+            href={teamConfig.socialLinks.github}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-signal"
+          >
+            <GitBranch aria-hidden="true" className="size-4" />
+            Everything we publish lives on GitHub
+            <ArrowUpRight
+              aria-hidden="true"
+              className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
+        </Reveal>
+      )}
 
       <RevealGroup as="ul" className="mt-10 grid gap-4 sm:grid-cols-3">
         {resources.map((resource) => (

@@ -1,5 +1,19 @@
 @import 'tailwindcss';
 
+/*
+ * Self-hosted rather than pulled from Google Fonts: the files are bundled and
+ * fingerprinted with everything else, so there is no third-party request on
+ * first paint and no flash of fallback type.
+ *
+ * Orbitron is the display face. It is a squared geometric sans, which is the
+ * same construction as the TENSOR wordmark drawn into the logo — headings and
+ * the mark read as one family rather than two. Only the weights actually used
+ * are imported.
+ */
+@import '@fontsource/orbitron/500.css';
+@import '@fontsource/orbitron/700.css';
+@import '@fontsource-variable/jetbrains-mono';
+
 /* ---------------------------------------------------------------------------
    Design tokens
 
@@ -13,7 +27,15 @@
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
   --font-mono:
-    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  /*
+   * Display face, for headlines and the team number only. Body copy stays on
+   * the system sans — Orbitron is built for short strings in caps and gets
+   * tiring across a paragraph.
+   */
+  --font-display: 'Orbitron', var(--font-sans);
 
   /* Page */
   --color-canvas: oklch(0.155 0.014 268);
@@ -216,9 +238,35 @@ p {
 /* Small uppercase monospace label — section kickers and spec keys. */
 @utility kicker {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   line-height: 1;
-  letter-spacing: 0.16em;
+  /* Wide enough that a short label reads as an instrument marking rather than
+     as small text. Below about 0.2em the effect disappears. */
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+/*
+ * Display headings.
+ *
+ * Orbitron runs wide, so it needs negative tracking to stop a headline
+ * sprawling, and a line-height under 1 to keep multi-line headlines locked
+ * together as a block.
+ */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 0.96;
+}
+
+/* A hairline technical label, as seen on an instrument bezel. */
+@utility hud {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--color-ink-faint);
 }

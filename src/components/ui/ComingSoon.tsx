@@ -29,7 +29,7 @@ const CORNERS = [
 /**
  * A reveal notice for work that is not finished yet.
  *
- * Used for Singularity and FTCHub. The corner brackets, the slow scanline and
+ * Used for Singularity and FTCHome. The corner brackets, the slow scanline and
  * the network graph behind it make an unfinished thing read as deliberate
  * rather than as an empty page. The scanline is skipped under reduced motion.
  */
@@ -91,7 +91,7 @@ export function ComingSoon({ kicker, title, description, actions, className }: C
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={transitions.base}
-        className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-5xl"
+        className="display mt-4 text-4xl text-ink sm:text-6xl"
       >
         {/* The name resolves out of noise — the panel is announcing something
             that is not finished yet, and this is what that looks like. */}

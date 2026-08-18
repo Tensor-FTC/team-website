@@ -93,6 +93,6 @@ export const teamValues: Value[] = [
     id: 'value-4',
     title: 'Build tools, not just robots',
     description:
-      'The problems we hit as a rookie team are the same ones every new team hits. FTCHub came out of that — if we can solve it once, we can share it.',
+      'The problems we hit as a rookie team are the same ones every new team hits. FTCHome came out of that — if we can solve it once, we can share it.',
   },
 ]

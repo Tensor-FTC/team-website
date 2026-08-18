@@ -28,7 +28,7 @@ export function StatsSection() {
                   />
                 </div>
 
-                <p className="mt-5 text-5xl font-semibold tabular-nums tracking-[-0.03em] text-ink">
+                <p className="display mt-5 text-5xl tabular-nums text-ink">
                   <StatCounter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
                 </p>
 

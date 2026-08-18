@@ -5,9 +5,9 @@ import { heroContainer, heroItem } from '../../config/motion'
 import { hasTeamNumber, organisation, seasonLabel, teamConfig } from '../../config/teamConfig'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { Section } from '../layout/Section'
-import ShinyText from '../reactbits/ShinyText'
 import { AnimatedHeading } from '../ui/AnimatedHeading'
 import { ButtonLink } from '../ui/Button'
+import { IdentityLine } from '../ui/IdentityLine'
 import { Magnetic } from '../ui/Magnetic'
 import { NetworkGraph } from '../ui/NetworkGraph'
 import { ScrambleText } from '../ui/ScrambleText'
@@ -61,32 +61,44 @@ function IdentityPlate() {
           className="size-24 shrink-0 object-contain sm:size-28 lg:size-auto lg:w-full"
         />
 
-        <div className="min-w-0 lg:border-t lg:border-edge lg:pt-5">
-          <p className="kicker">FIRST Tech Challenge</p>
+        {/*
+         * The readout. The season is deliberately absent — the bezel across the
+         * top of the hero already carries it, and the plate repeating it made
+         * the same fact appear twice within one screen.
+         */}
+        <div className="flex min-w-0 items-end justify-between gap-4 lg:items-center lg:border-t lg:border-edge lg:pt-5">
+          <div className="min-w-0">
+            <p className="kicker hidden lg:block">FIRST Tech Challenge</p>
 
-          {hasTeamNumber() && (
-            <p className="mt-2.5 font-mono text-3xl leading-none font-semibold tracking-[0.06em] text-ink sm:text-4xl">
-              <ScrambleText text={teamConfig.teamNumber} speed={46} />
+            {hasTeamNumber() && (
+              <p className="font-display text-2xl leading-none font-bold tracking-[0.04em] text-ink sm:text-3xl lg:mt-2.5 lg:text-4xl">
+                {/* `!` because DecryptedText hardcodes `whitespace-pre-wrap` on
+                    its own wrapper, and it renders one span per character — the
+                    number would otherwise break mid-digit on a narrow phone. */}
+                <ScrambleText
+                  text={`#${teamConfig.teamNumber}`}
+                  speed={46}
+                  className="whitespace-nowrap!"
+                />
+              </p>
+            )}
+          </div>
+
+          {/* Rookie-season marker — true today, and it dates the site honestly. */}
+          {teamConfig.isRookieSeason && (
+            <p className="hidden shrink-0 items-center gap-2 sm:flex">
+              <span aria-hidden="true" className="relative grid size-2 place-items-center">
+                <motion.span
+                  className="absolute size-2 rounded-full bg-signal"
+                  animate={prefersReducedMotion ? undefined : { opacity: [1, 0.3, 1] }}
+                  transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              </span>
+              <span className="hud text-signal">Rookie</span>
             </p>
           )}
-
-          <p className="kicker mt-3 truncate">{seasonLabel()}</p>
         </div>
       </div>
-
-      {/* Rookie-season marker — true today, and it dates the site honestly. */}
-      {teamConfig.isRookieSeason && (
-        <p className="mt-4 flex items-center justify-center gap-2.5 lg:justify-start">
-          <span aria-hidden="true" className="relative grid size-2 place-items-center">
-            <motion.span
-              className="absolute size-2 rounded-full bg-signal"
-              animate={prefersReducedMotion ? undefined : { opacity: [1, 0.3, 1] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </span>
-          <span className="kicker text-signal">Rookie season · in progress</span>
-        </p>
-      )}
     </div>
   )
 }
@@ -111,6 +123,24 @@ export function Hero() {
         <NetworkGraph columns={7} rows={4} />
       </div>
 
+      {/*
+       * The bezel. A hairline rule with a label at each end frames the hero as
+       * an instrument viewport rather than as a page section. It carries facts
+       * that used to sit loose under the copy, so it adds a line of chrome and
+       * removes a line of text.
+       */}
+      <Section spacing="sm" className="pt-6 pb-0 sm:pt-8">
+        <motion.div
+          variants={heroItem}
+          initial="hidden"
+          animate="visible"
+          className="flex items-center justify-between gap-4 border-b border-edge pb-3"
+        >
+          <span className="hud hidden truncate sm:block">{organisation()}</span>
+          <span className="hud shrink-0 text-signal/70">{seasonLabel()}</span>
+        </motion.div>
+      </Section>
+
       <Section spacing="lg" className="pt-8 sm:pt-12">
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
           <motion.div
@@ -119,17 +149,9 @@ export function Hero() {
             animate="visible"
             className="order-2 min-w-0 max-w-2xl lg:order-1"
           >
-            <motion.p variants={heroItem} className="flex items-center gap-3">
-              <span aria-hidden="true" className="h-px w-6 bg-signal" />
-              <ShinyText
-                text="Redmond, Washington"
-                className="kicker text-signal"
-                color="oklch(0.795 0.104 226)"
-                shineColor="#ffffff"
-                speed={4}
-                delay={2.5}
-              />
-            </motion.p>
+            <motion.div variants={heroItem}>
+              <IdentityLine shine />
+            </motion.div>
 
             <motion.div variants={heroItem}>
               <AnimatedHeading
@@ -137,7 +159,7 @@ export function Hero() {
                 text={teamConfig.slogan}
                 immediate
                 stagger={70}
-                className="mt-6 text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-ink sm:text-5xl lg:text-6xl"
+                className="display mt-6 text-3xl text-ink sm:text-4xl lg:text-5xl"
               />
             </motion.div>
 
@@ -166,7 +188,7 @@ export function Hero() {
             </motion.div>
 
             <motion.p variants={heroItem} className="kicker mt-12">
-              {organisation()} · Founded {teamConfig.foundedYear}
+              Founded {teamConfig.foundedYear}
             </motion.p>
           </motion.div>
 

@@ -23,7 +23,7 @@ const highlights: Highlight[] = [
   {
     to: '/resources',
     index: '02',
-    title: 'FTCHub',
+    title: 'FTCHome',
     description:
       'An app we are building to handle the admin side of running a robotics team — budgets, sponsors, parts, deadlines.',
   },
@@ -39,7 +39,7 @@ const highlights: Highlight[] = [
     index: '04',
     title: 'What we are building',
     description:
-      'An offseason DECODE robot, FTCHub, and the engineering portfolio that records all of it.',
+      'An offseason DECODE robot, FTCHome, and the engineering portfolio that records all of it.',
   },
 ]
 

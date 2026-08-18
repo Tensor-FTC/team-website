@@ -52,8 +52,8 @@ export const projects: Project[] = [
     link: '',
   },
   {
-    id: 'project-ftchub',
-    title: 'FTCHub',
+    id: 'project-ftchome',
+    title: 'FTCHome',
     summary: 'An app to help robotics teams manage their finances, inventory and season logistics.',
     description:
       'Running a team turns out to be as much bookkeeping as engineering — budgets, sponsor money, parts, registration deadlines. We are building the tool we wanted on day one, and releasing it for other teams to use.',

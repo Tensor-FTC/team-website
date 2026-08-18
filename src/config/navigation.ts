@@ -16,7 +16,7 @@ export const navLinks: NavLink[] = [
   { to: '/robot', label: 'Robot', blurb: 'This season’s design and systems' },
   { to: '/projects', label: 'Projects', blurb: 'Engineering and software work' },
   { to: '/outreach', label: 'Outreach', blurb: 'Community events and workshops' },
-  { to: '/resources', label: 'Resources', blurb: 'FTCHub and tools for other teams' },
+  { to: '/resources', label: 'Resources', blurb: 'FTCHome and tools for other teams' },
   { to: '/sponsors', label: 'Sponsors', blurb: 'Partners who make it possible' },
   { to: '/contact', label: 'Contact', blurb: 'Get in touch with the team' },
 ]

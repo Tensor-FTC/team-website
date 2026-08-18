@@ -47,9 +47,7 @@ export function Navbar() {
           className="min-w-0 shrink-0 rounded-md transition-opacity hover:opacity-85"
           aria-label={`${teamConfig.teamName} — home`}
         >
-          {/* The number is the first thing a judge or another team looks for,
-              but it needs room the narrowest phones do not have. */}
-          <TeamLogo size={38} showName showNumber numberClassName="hidden sm:block" />
+          <TeamLogo size={38} showName />
         </Link>
 
         {/* Desktop navigation */}

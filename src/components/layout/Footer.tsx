@@ -22,7 +22,7 @@ export function Footer() {
           {/* Identity */}
           <div className="flex flex-col gap-5">
             <Link to="/" className="w-fit rounded-md" aria-label={`${teamConfig.teamName} — home`}>
-              <TeamLogo size={48} showName showNumber />
+              <TeamLogo size={48} showName />
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-ink-soft">{teamConfig.slogan}</p>
 

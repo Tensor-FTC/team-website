@@ -1,22 +1,24 @@
 /**
  * Things we are making available to other teams.
  *
- * FTCHub is the headline item and gets its own feature block on the Resources
+ * FTCHome is the headline item and gets its own feature block on the Resources
  * page. Everything in `resources` renders as a list below it — set `comingSoon`
  * to false and fill in `link` as each one goes live.
  */
 import type { LucideIcon } from 'lucide-react'
 import { BookOpen, FileText, Wrench } from 'lucide-react'
 
-/** The FTCHub feature block. */
-export const ftcHub = {
-  name: 'FTCHub',
+/** The FTCHome feature block. */
+export const ftcHome = {
+  name: 'FTCHome',
   tagline: 'Season management for robotics teams.',
   status: 'In development',
+  /** Public repository. Built in the open, so the code is readable before it ships. */
+  repo: 'https://github.com/Tensor-FTC/FTCHome',
   description:
     'Running a team is a bookkeeping problem as much as an engineering one. Sponsor money arrives in pieces, parts orders pile up, registration and event deadlines land in the middle of build season, and most teams track all of it across a few spreadsheets and a group chat.',
   secondaryDescription:
-    'FTCHub is the tool we wanted on our first day: one place for a team budget, sponsor and expense tracking, a parts inventory, and the season calendar. We are building it as a rookie team for rookie teams, and it will be free for teams to use.',
+    'FTCHome is the tool we wanted on our first day: one place for a team budget, sponsor and expense tracking, a parts inventory, and the season calendar. We are building it as a rookie team for rookie teams, and it will be free for teams to use.',
   /** What the first release will cover. */
   features: [
     {

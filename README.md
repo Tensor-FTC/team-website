@@ -92,7 +92,7 @@ Each data file is typed and commented, and contains placeholder entries to copy:
 | `src/data/robotFeatures.ts`  | BIOBUZZ's status, specs and build plan on `/robot`          |
 | `src/data/projects.ts`       | Project cards and tag filter on `/projects`                 |
 | `src/data/outreachEvents.ts` | Outreach events and planned events on `/outreach`           |
-| `src/data/resources.ts`      | FTCHub and the resource list on `/resources`                |
+| `src/data/resources.ts`      | FTCHome and the resource list on `/resources`                |
 | `src/data/joinSteps.ts`      | The steps and questions on `/join`                          |
 | `src/data/sponsors.ts`       | Sponsor tiers and levels on `/sponsors`                     |
 | `src/data/statistics.ts`     | Headline numbers, awards and team values                    |

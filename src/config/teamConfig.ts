@@ -22,7 +22,7 @@ export const teamConfig = {
   socialLinks: {
     instagram: '',
     youtube: '',
-    github: '',
+    github: 'https://github.com/Tensor-FTC',
   },
 
   /* --- Additional details used around the site --- */

@@ -63,8 +63,8 @@ export function SectionHeading({
         text={title}
         stagger={45}
         className={cn(
-          'font-semibold tracking-tight text-ink',
-          level === 'h2' ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl',
+          'display text-ink',
+          level === 'h2' ? 'text-3xl sm:text-4xl lg:text-[2.75rem]' : 'text-2xl sm:text-3xl',
         )}
       />
 
