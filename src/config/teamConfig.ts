@@ -1,3 +1,5 @@
+import { isPlaceholder } from './placeholders'
+
 /**
  * Single source of truth for team information.
  *
@@ -7,7 +9,7 @@
  */
 export const teamConfig = {
   teamName: 'Tensor',
-  teamNumber: 'TEAM_NUMBER_PLACEHOLDER',
+  teamNumber: '37372',
   slogan: 'We design, build and program competition robots.',
   email: 'tensorftcteam@gmail.com',
   /**
@@ -46,8 +48,11 @@ export const teamConfig = {
   /**
    * Canonical, absolute site URL, used for <link rel="canonical"> and Open
    * Graph tags. Leave blank to skip emitting absolute URLs.
+   *
+   * No trailing slash. Update this the day a custom domain goes live —
+   * link previews keep pointing here until it changes.
    */
-  siteUrl: '',
+  siteUrl: 'https://tensor-ftc.github.io/team-website',
   /** Path to the logo in /public. Used by the <TeamLogo> component. */
   logoPath: '/team-logo.png',
   /** One-sentence description used as the default meta description. */
@@ -75,7 +80,18 @@ export function seasonLabel(): string {
 
 /** False while the team number is still the placeholder. */
 export function hasTeamNumber(): boolean {
-  return !teamConfig.teamNumber.includes('PLACEHOLDER')
+  return !isPlaceholder(teamConfig.teamNumber)
+}
+
+/**
+ * `"Saturdays 10–2 · The Old Fire Station"`, or null while neither has been
+ * filled in. Either half on its own is still worth showing.
+ */
+export function meetingSummary(): string | null {
+  const parts = [teamConfig.meetingSchedule, teamConfig.meetingLocation].filter(
+    (part) => !isPlaceholder(part),
+  )
+  return parts.length > 0 ? parts.join(' · ') : null
 }
 
 /** The address sponsorship enquiries should be sent to. */

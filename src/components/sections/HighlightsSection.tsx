@@ -1,8 +1,9 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Section } from '../layout/Section'
 import { RevealGroup, RevealItem } from '../ui/Reveal'
 import { SectionHeading } from '../ui/SectionHeading'
+import { SpotlightPanel } from '../ui/SpotlightPanel'
 
 type Highlight = {
   to: string
@@ -30,7 +31,8 @@ const highlights: Highlight[] = [
     to: '/team',
     index: '03',
     title: 'The team',
-    description: 'Seven students across software, hardware and outreach, plus a coach and two mentors.',
+    description:
+      'Seven students across software, hardware and outreach, plus a coach and two mentors.',
   },
   {
     to: '/projects',
@@ -44,8 +46,8 @@ const highlights: Highlight[] = [
 /**
  * Home page index of the site.
  *
- * A numbered list with hairline dividers instead of a grid of bordered cards —
- * fewer boxes, easier to scan.
+ * Four numbered cards. The number is set large and dim so it works as an
+ * ordering cue you can skim past, rather than as another line of text to read.
  */
 export function HighlightsSection() {
   return (
@@ -56,31 +58,33 @@ export function HighlightsSection() {
         description="We are a first-year team, so most of this is in progress. Here is what we are actually working on."
       />
 
-      <RevealGroup as="ul" className="mt-10 border-t border-edge">
+      <RevealGroup as="ul" className="mt-10 grid gap-4 sm:grid-cols-2">
         {highlights.map((highlight) => (
-          <RevealItem as="li" key={highlight.to}>
-            <Link
-              to={highlight.to}
-              className="group flex items-baseline gap-5 border-b border-edge py-6 transition-colors hover:bg-surface/40 sm:gap-8 sm:px-2"
-            >
-              <span className="kicker shrink-0 transition-colors group-hover:text-signal">
-                {highlight.index}
-              </span>
+          <RevealItem as="li" key={highlight.to} className="min-w-0">
+            <SpotlightPanel className="h-full">
+              <Link
+                to={highlight.to}
+                className="group flex h-full flex-col p-6 sm:p-7"
+                /* The card is the hit target; the spotlight sits behind it. */
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="font-mono text-3xl leading-none font-semibold tracking-[0.02em] text-ink-faint/50 transition-colors duration-200 group-hover:text-signal/70">
+                    {highlight.index}
+                  </span>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="size-4 shrink-0 text-ink-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal"
+                  />
+                </div>
 
-              <span className="min-w-0 flex-1">
-                <span className="block text-lg font-semibold tracking-tight text-ink transition-colors group-hover:text-signal">
+                <h3 className="mt-6 text-lg font-semibold tracking-tight text-ink transition-colors duration-200 group-hover:text-signal">
                   {highlight.title}
-                </span>
-                <span className="mt-1.5 block text-sm leading-relaxed text-ink-soft">
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                   {highlight.description}
-                </span>
-              </span>
-
-              <ArrowRight
-                aria-hidden="true"
-                className="mt-1 size-4 shrink-0 text-ink-faint transition-all duration-200 group-hover:translate-x-1 group-hover:text-signal"
-              />
-            </Link>
+                </p>
+              </Link>
+            </SpotlightPanel>
           </RevealItem>
         ))}
       </RevealGroup>

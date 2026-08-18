@@ -1,3 +1,5 @@
+import { isPlaceholder } from '../config/placeholders'
+
 /**
  * Team roster.
  *
@@ -158,8 +160,28 @@ export function membersBySubteam(subteam: Subteam): TeamMember[] {
   return teamMembers.filter((member) => member.subteam === subteam)
 }
 
+/**
+ * A person's name, or a neutral stand-in while the roster is being written up.
+ *
+ * Roles and subteams below are real; the names are not published yet. Saying so
+ * plainly is better than printing STUDENT_NAME_PLACEHOLDER, and better than
+ * dropping the card — the shape of the team is the useful part.
+ */
+export function displayName(name: string): string {
+  return isPlaceholder(name) ? 'Name to come' : name
+}
+
+/** A field worth rendering, or null while it is still a placeholder. */
+export function displayDetail(value: string): string | null {
+  // "Class of YEAR" is the roster template's stand-in for a graduation year.
+  if (isPlaceholder(value) || value.includes('YEAR')) return null
+  return value
+}
+
 /** Initials used by the monogram avatar fallback. */
 export function initialsFor(name: string): string {
+  if (isPlaceholder(name)) return '··'
+
   const parts = name.trim().split(/[\s_]+/).filter(Boolean)
   if (parts.length === 0) return '?'
   return parts

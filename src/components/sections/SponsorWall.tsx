@@ -1,8 +1,10 @@
-import { ArrowUpRight, Check } from 'lucide-react'
+import { ArrowUpRight, Check, HeartHandshake } from 'lucide-react'
 import {
+  realSponsors,
   sponsorTierLabels,
   sponsorTierOrder,
   sponsorsByTier,
+  sponsorshipAmount,
   sponsorshipLevels,
   type Sponsor,
 } from '../../data/sponsors'
@@ -79,8 +81,42 @@ function SponsorCard({ sponsor, featured }: { sponsor: Sponsor; featured: boolea
   )
 }
 
-/** Every sponsor, grouped into tier sections. */
+/**
+ * Every sponsor, grouped into tier sections.
+ *
+ * Until the first one signs, this is a single honest panel rather than a grid
+ * of empty cards. Being new is not something to paper over — it is the reason a
+ * sponsor would be the first name on the robot.
+ */
 export function SponsorWall() {
+  if (realSponsors().length === 0) {
+    return (
+      <Section spacing="sm" id="our-sponsors">
+        <Reveal>
+          <Panel padding="lg" brackets className="flex flex-col items-start gap-5 sm:flex-row">
+            <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-edge bg-surface-high">
+              <HeartHandshake
+                aria-hidden="true"
+                className="size-5 text-signal"
+                strokeWidth={1.75}
+              />
+            </span>
+            <div className="min-w-0">
+              <h2 className="text-lg font-semibold tracking-tight text-ink">
+                No sponsors yet — the first slot is open
+              </h2>
+              <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-ink-soft">
+                We are a first-year team looking for our first backers. Whoever comes in first gets
+                the top of this page, the front of the shirts and a place in the story of how this
+                team got off the ground. The levels below are where to start.
+              </p>
+            </div>
+          </Panel>
+        </Reveal>
+      </Section>
+    )
+  }
+
   return (
     <Section spacing="sm" id="our-sponsors">
       <div className="flex flex-col gap-12">
@@ -150,7 +186,7 @@ export function SponsorshipTiers() {
                 </div>
 
                 <p className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-signal">
-                  {level.amount}
+                  {sponsorshipAmount(level)}
                 </p>
 
                 <ul className="mt-6 flex flex-col gap-2.5 border-t border-edge pt-5">

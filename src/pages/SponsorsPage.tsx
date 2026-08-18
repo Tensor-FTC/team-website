@@ -6,10 +6,11 @@ import { SponsorWall, SponsorshipTiers } from '../components/sections/SponsorWal
 import { ButtonExternal, ButtonLink } from '../components/ui/Button'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { seasonLabel, sponsorContactEmail, teamConfig } from '../config/teamConfig'
-import { sponsors } from '../data/sponsors'
+import { realSponsors } from '../data/sponsors'
 
 export default function SponsorsPage() {
   const email = sponsorContactEmail()
+  const signed = realSponsors().length
 
   return (
     <>
@@ -39,7 +40,9 @@ export default function SponsorsPage() {
           </>
         }
         meta={[
-          { label: 'Sponsors', value: String(sponsors.length) },
+          // 'Seeking first' rather than a flat 0 — the same fact, framed as the
+          // ask this page is actually making.
+          { label: 'Sponsors', value: signed > 0 ? String(signed) : 'Seeking first' },
           { label: 'Season', value: seasonLabel() },
           { label: 'Based in', value: teamConfig.location },
           { label: 'Contact', value: email },
@@ -47,11 +50,19 @@ export default function SponsorsPage() {
       />
 
       <Section spacing="sm">
-        <SectionHeading
-          kicker="Thank you"
-          title="Our current sponsors"
-          description="Add your own sponsors — and their logos — by editing src/data/sponsors.ts. Cards without a logo file fall back to the sponsor's name, so the page always looks finished."
-        />
+        {signed > 0 ? (
+          <SectionHeading
+            kicker="Thank you"
+            title="Our current sponsors"
+            description="Every organisation below backs a first-year team that has yet to prove itself. That is a harder thing to ask for than a renewal, and we do not take it lightly."
+          />
+        ) : (
+          <SectionHeading
+            kicker="Our sponsors"
+            title="This page is empty, and we would like to change that"
+            description="Backing a rookie team is a harder ask than renewing with an established one. It is also the version where a sponsor is part of how the team got started, rather than a logo added later."
+          />
+        )}
       </Section>
 
       <SponsorWall />

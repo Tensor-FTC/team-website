@@ -1,6 +1,5 @@
-import { animate, useInView } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import CountUp from '../reactbits/CountUp'
 
 type StatCounterProps = {
   value: number
@@ -14,46 +13,37 @@ type StatCounterProps = {
 /**
  * Counts up to `value` the first time it scrolls into view.
  *
- * Renders the final value immediately when reduced motion is requested. The
- * number is exposed to assistive tech as a single final value rather than a
- * stream of intermediate ones.
+ * React Bits' <CountUp> drives the number on a spring, so it eases into its
+ * final value instead of stopping dead. It writes to `textContent` directly and
+ * never re-renders, which is why the whole stat row can animate at once without
+ * costing anything.
+ *
+ * The settled value is also rendered visually hidden: assistive tech reads one
+ * final number rather than a stream of intermediate ones. With reduced motion
+ * requested there is no animation and no duplicate node — just the number.
  */
 export function StatCounter({
   value,
   prefix = '',
   suffix = '',
-  duration = 1.4,
+  duration = 1.6,
   className,
 }: StatCounterProps) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
   const prefersReducedMotion = usePrefersReducedMotion()
-  const [counted, setCounted] = useState(0)
-
-  // Derived, not stored: with reduced motion the final value is shown outright
-  // and the animation below never runs.
-  const display = prefersReducedMotion ? value : counted
-
-  useEffect(() => {
-    if (!isInView || prefersReducedMotion) return
-
-    const controls = animate(0, value, {
-      duration,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (latest) => setCounted(Math.round(latest)),
-    })
-
-    return () => controls.stop()
-  }, [isInView, value, duration, prefersReducedMotion])
-
-  const formatted = `${prefix}${display.toLocaleString()}${suffix}`
   const final = `${prefix}${value.toLocaleString()}${suffix}`
 
+  if (prefersReducedMotion) {
+    return <span className={className}>{final}</span>
+  }
+
   return (
-    <span ref={ref} className={className}>
-      {/* Screen readers get the settled value; the animation is decorative. */}
+    <span className={className}>
       <span className="sr-only">{final}</span>
-      <span aria-hidden="true">{formatted}</span>
+      <span aria-hidden="true">
+        {prefix}
+        <CountUp to={value} duration={duration} separator="," />
+        {suffix}
+      </span>
     </span>
   )
 }

@@ -1,7 +1,14 @@
 import { motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { transitions } from '../../config/motion'
-import { initialsFor, subteams, teamMembers, type Subteam } from '../../data/teamMembers'
+import {
+  displayDetail,
+  displayName,
+  initialsFor,
+  subteams,
+  teamMembers,
+  type Subteam,
+} from '../../data/teamMembers'
 import { Section } from '../layout/Section'
 import { MediaFrame } from '../ui/MediaFrame'
 import { Panel } from '../ui/Panel'
@@ -69,47 +76,65 @@ export function TeamGrid() {
         as="ul"
         className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {visible.map((member) => (
-          <RevealItem as="li" key={member.id} className="min-w-0">
-            <Panel padding="none" hover as="article" className="flex h-full flex-col overflow-hidden">
-              {member.image ? (
-                <MediaFrame
-                  src={member.image}
-                  alt={member.name}
-                  aspect="aspect-[4/3]"
-                  className="rounded-none border-0 border-b border-edge"
-                />
-              ) : (
-                <div className="blueprint grid aspect-[4/3] place-items-center border-b border-edge bg-canvas-deep">
-                  <span
-                    aria-hidden="true"
-                    className="grid size-16 place-items-center rounded-full border border-signal/30 bg-signal-dim font-mono text-lg text-signal"
-                  >
-                    {initialsFor(member.name)}
-                  </span>
-                </div>
-              )}
+        {visible.map((member) => {
+          const year = displayDetail(member.year)
+          const bio = displayDetail(member.bio)
 
-              <div className="flex flex-1 flex-col p-5">
-                <h3 className="text-base font-semibold tracking-tight text-ink">{member.name}</h3>
-                <p className="mt-1 text-sm font-medium text-signal">{member.role}</p>
-                <p className="kicker mt-2">{member.year}</p>
-
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft">{member.bio}</p>
-
-                {member.skills.length > 0 && (
-                  <ul className="mt-5 flex flex-wrap gap-1.5 border-t border-edge pt-4">
-                    {member.skills.map((skill) => (
-                      <li key={skill}>
-                        <Pill tone="muted">{skill}</Pill>
-                      </li>
-                    ))}
-                  </ul>
+          return (
+            <RevealItem as="li" key={member.id} className="min-w-0">
+              <Panel
+                padding="none"
+                hover
+                as="article"
+                className="flex h-full flex-col overflow-hidden"
+              >
+                {member.image ? (
+                  <MediaFrame
+                    src={member.image}
+                    alt={displayName(member.name)}
+                    aspect="aspect-[4/3]"
+                    className="rounded-none border-0 border-b border-edge"
+                  />
+                ) : (
+                  <div className="blueprint grid aspect-[4/3] place-items-center border-b border-edge bg-canvas-deep">
+                    <span
+                      aria-hidden="true"
+                      className="grid size-16 place-items-center rounded-full border border-signal/30 bg-signal-dim font-mono text-lg text-signal"
+                    >
+                      {initialsFor(member.name)}
+                    </span>
+                  </div>
                 )}
-              </div>
-            </Panel>
-          </RevealItem>
-        ))}
+
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="text-base font-semibold tracking-tight text-ink">
+                    {displayName(member.name)}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-signal">{member.role}</p>
+                  {year && <p className="kicker mt-2">{year}</p>}
+
+                  {/* The spacer keeps the skill pills on the bottom edge of
+                      every card, including the ones with no bio written yet. */}
+                  {bio ? (
+                    <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft">{bio}</p>
+                  ) : (
+                    <span aria-hidden="true" className="flex-1" />
+                  )}
+
+                  {member.skills.length > 0 && (
+                    <ul className="mt-5 flex flex-wrap gap-1.5 border-t border-edge pt-4">
+                      {member.skills.map((skill) => (
+                        <li key={skill}>
+                          <Pill tone="muted">{skill}</Pill>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </Panel>
+            </RevealItem>
+          )
+        })}
       </RevealGroup>
 
       {visible.length === 0 && (

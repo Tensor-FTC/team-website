@@ -32,7 +32,7 @@ export function ProjectsGrid() {
       <SectionHeading
         kicker="Portfolio"
         title="Everything we have worked on"
-        description="Pick a tag to narrow the list. Entries live in src/data/projects.ts."
+        description="Everything we have built, are building, or have written up. Pick a tag to narrow the list."
       />
 
       <div

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { heroContainer, heroItem } from '../../config/motion'
+import { AnimatedHeading } from '../ui/AnimatedHeading'
 import { Section } from './Section'
 
 type PageHeaderProps = {
@@ -29,12 +30,15 @@ export function PageHeader({ kicker, title, description, actions, meta }: PageHe
           <span className="kicker text-signal">{kicker}</span>
         </motion.span>
 
-        <motion.h1
-          variants={heroItem}
-          className="mt-5 text-3xl font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-4xl lg:text-5xl"
-        >
-          {title}
-        </motion.h1>
+        <motion.div variants={heroItem}>
+          <AnimatedHeading
+            as="h1"
+            text={title}
+            immediate
+            stagger={55}
+            className="mt-5 text-3xl leading-[1.1] font-semibold tracking-[-0.02em] text-ink sm:text-4xl lg:text-5xl"
+          />
+        </motion.div>
 
         <motion.p
           variants={heroItem}

@@ -44,10 +44,12 @@ export function Navbar() {
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           to="/"
-          className="min-w-0 rounded-md transition-opacity hover:opacity-80"
+          className="min-w-0 shrink-0 rounded-md transition-opacity hover:opacity-85"
           aria-label={`${teamConfig.teamName} — home`}
         >
-          <TeamLogo size={34} showName className="max-w-[13rem]" />
+          {/* The number is the first thing a judge or another team looks for,
+              but it needs room the narrowest phones do not have. */}
+          <TeamLogo size={38} showName showNumber numberClassName="hidden sm:block" />
         </Link>
 
         {/* Desktop navigation */}

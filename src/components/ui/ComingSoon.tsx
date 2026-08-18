@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { transitions } from '../../config/motion'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { NetworkGraph } from './NetworkGraph'
+import { ScrambleText } from './ScrambleText'
 import { cn } from './cn'
 
 type ComingSoonProps = {
@@ -92,7 +93,9 @@ export function ComingSoon({ kicker, title, description, actions, className }: C
         transition={transitions.base}
         className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-5xl"
       >
-        {title}
+        {/* The name resolves out of noise — the panel is announcing something
+            that is not finished yet, and this is what that looks like. */}
+        <ScrambleText text={title} speed={42} />
       </motion.h2>
 
       <div className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-soft">

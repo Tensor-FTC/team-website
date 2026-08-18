@@ -7,7 +7,15 @@ import { Panel } from '../components/ui/Panel'
 import { RevealGroup, RevealItem } from '../components/ui/Reveal'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { teamConfig } from '../config/teamConfig'
-import { initialsFor, membersBySubteam, mentors, subteams, teamMembers } from '../data/teamMembers'
+import {
+  displayDetail,
+  displayName,
+  initialsFor,
+  membersBySubteam,
+  mentors,
+  subteams,
+  teamMembers,
+} from '../data/teamMembers'
 
 export default function TeamPage() {
   return (
@@ -80,9 +88,13 @@ export default function TeamPage() {
                   {initialsFor(mentor.name)}
                 </span>
                 <div className="min-w-0">
-                  <h3 className="text-base font-semibold tracking-tight text-ink">{mentor.name}</h3>
+                  <h3 className="text-base font-semibold tracking-tight text-ink">
+                    {displayName(mentor.name)}
+                  </h3>
                   <p className="mt-1 text-sm font-medium text-signal">{mentor.role}</p>
-                  <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{mentor.bio}</p>
+                  <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
+                    {displayDetail(mentor.bio)}
+                  </p>
                 </div>
               </Panel>
             </RevealItem>

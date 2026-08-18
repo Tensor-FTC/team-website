@@ -1,7 +1,9 @@
 import { ArrowRight } from 'lucide-react'
 import { teamConfig } from '../../config/teamConfig'
 import { Section } from '../layout/Section'
+import { AnimatedHeading } from '../ui/AnimatedHeading'
 import { ButtonExternal, ButtonLink } from '../ui/Button'
+import { Magnetic } from '../ui/Magnetic'
 import { NetworkGraph } from '../ui/NetworkGraph'
 import { Reveal } from '../ui/Reveal'
 
@@ -34,24 +36,31 @@ export function CallToAction({
           <NetworkGraph columns={6} rows={3} interactive={false} />
         </div>
 
-        <h2 className="mx-auto max-w-2xl text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-          {title}
-        </h2>
+        <AnimatedHeading
+          as="h2"
+          text={title}
+          stagger={45}
+          className="mx-auto max-w-2xl justify-center text-2xl font-semibold tracking-tight text-ink sm:text-3xl"
+        />
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
           {description}
         </p>
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <ButtonLink to="/contact" size="lg">
-            Contact the team
-            <ArrowRight
-              aria-hidden="true"
-              className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-            />
-          </ButtonLink>
-          <ButtonExternal href={`mailto:${teamConfig.email}`} variant="secondary" size="lg">
-            {teamConfig.email}
-          </ButtonExternal>
+          <Magnetic>
+            <ButtonLink to="/contact" size="lg">
+              Contact the team
+              <ArrowRight
+                aria-hidden="true"
+                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </ButtonLink>
+          </Magnetic>
+          <Magnetic>
+            <ButtonExternal href={`mailto:${teamConfig.email}`} variant="secondary" size="lg">
+              {teamConfig.email}
+            </ButtonExternal>
+          </Magnetic>
         </div>
       </Reveal>
     </Section>

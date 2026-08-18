@@ -28,4 +28,21 @@ export default defineConfig([
       globals: globals.node,
     },
   },
+  {
+    /*
+     * Third-party React Bits sources, copied in verbatim so they can be
+     * re-synced from upstream. Real errors still apply; the two rules below are
+     * house style we do not get to impose on someone else's code.
+     */
+    files: ['src/components/reactbits/**/*.{ts,tsx}'],
+    linterOptions: {
+      // Upstream carries its own eslint-disable comments for a different config.
+      reportUnusedDisableDirectives: false,
+    },
+    rules: {
+      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])

@@ -19,6 +19,13 @@
   --color-canvas: oklch(0.155 0.014 268);
   --color-canvas-deep: oklch(0.115 0.012 268);
 
+  /*
+   * The exact background of the logo artwork, sampled from the PNG. Anything
+   * that frames the logo is painted this colour, so the plate the mark is drawn
+   * on disappears into the frame and only the mark itself reads.
+   */
+  --color-plate: #010101;
+
   /* Raised surfaces */
   --color-surface: oklch(0.205 0.019 268);
   --color-surface-high: oklch(0.245 0.023 268);
@@ -136,24 +143,37 @@ p {
  * Keeps the hero network graph clear of the headline.
  *
  * On phones the copy spans the full width, so the graph is faint and fades out
- * downward. From `lg` up there is empty space to the right of the text, so the
- * graph strengthens toward that side and stays out from under the words.
+ * downward. From `lg` up the headline holds the left and the identity plate
+ * holds the right, so the graph is strongest through the gap between them and
+ * falls away under both.
  */
 .hero-graph {
-  opacity: 0.4;
+  opacity: 0.35;
   mask-image: linear-gradient(to bottom, black 30%, transparent 92%);
   -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 92%);
 }
 
 @media (min-width: 64rem) {
   .hero-graph {
-    opacity: 0.85;
+    opacity: 0.75;
     mask-image:
-      linear-gradient(to right, transparent 32%, black 72%),
-      linear-gradient(to bottom, black 55%, transparent 100%);
+      linear-gradient(
+        to right,
+        transparent 20%,
+        black 52%,
+        black 68%,
+        transparent 96%
+      ),
+      linear-gradient(to bottom, black 60%, transparent 100%);
     -webkit-mask-image:
-      linear-gradient(to right, transparent 32%, black 72%),
-      linear-gradient(to bottom, black 55%, transparent 100%);
+      linear-gradient(
+        to right,
+        transparent 20%,
+        black 52%,
+        black 68%,
+        transparent 96%
+      ),
+      linear-gradient(to bottom, black 60%, transparent 100%);
     mask-composite: intersect;
     -webkit-mask-composite: source-in;
   }

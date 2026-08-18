@@ -3,12 +3,20 @@ import { hasTeamNumber, teamConfig } from '../../config/teamConfig'
 import { cn } from './cn'
 
 type TeamLogoProps = {
-  /** Rendered pixel size of the square mark. */
+  /** Rendered pixel size of the mark. The artwork is very nearly square. */
   size?: number
-  /** Show the team name (and number) beside the mark. */
+  /**
+   * Set the team name in type beside the mark.
+   *
+   * The artwork carries its own wordmark, but only legibly at display sizes —
+   * in a 38px header tile it is a smudge. Turn this on wherever the mark is
+   * small, and leave it off wherever the mark is big enough to read.
+   */
   showName?: boolean
-  /** Larger, looser type for the hero and footer. */
-  emphasis?: 'compact' | 'hero'
+  /** Show the team number chip beside the mark. */
+  showNumber?: boolean
+  /** Classes for the number chip — the header hides it on narrow phones. */
+  numberClassName?: string
   className?: string
 }
 
@@ -42,24 +50,46 @@ function MarkFallback({ size }: { size: number }) {
   )
 }
 
+/** `37372`, set like a part number. */
+export function TeamNumberChip({ className }: { className?: string }) {
+  if (!hasTeamNumber()) return null
+
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center rounded border border-signal/30 bg-signal-dim px-2 py-1',
+        'font-mono text-xs leading-none font-medium tracking-[0.14em] text-signal',
+        className,
+      )}
+    >
+      {teamConfig.teamNumber}
+    </span>
+  )
+}
+
 /**
- * The team mark.
+ * The team mark, exactly as drawn.
  *
- * Loads `/team-logo.png`. If that file is missing or fails to decode, it falls
- * back to an inline SVG of the same 3x3 network, so the site never shows a
- * broken image and never loses its identity.
+ * Loads `/team-logo.png` at its native proportions — no crop, no recolour. Its
+ * `alt` is the team name, because to a screen reader the image *is* the
+ * wordmark; when `showName` also sets the name in type, the image drops out of
+ * the accessibility tree instead of announcing "Tensor" twice.
+ *
+ * If the file is missing or fails to decode it falls back to an inline SVG of
+ * the same 3x3 network, with the name always in type beside it — the site never
+ * shows a broken image and never loses its identity.
  */
 export function TeamLogo({
-  size = 36,
+  size = 40,
   showName = false,
-  emphasis = 'compact',
+  showNumber = false,
+  numberClassName,
   className,
 }: TeamLogoProps) {
   const [logoFailed, setLogoFailed] = useState(false)
-  const isHero = emphasis === 'hero'
 
   return (
-    <span className={cn('inline-flex items-center', isHero ? 'gap-3.5' : 'gap-2.5', className)}>
+    <span className={cn('inline-flex items-center gap-3', className)}>
       {logoFailed ? (
         <MarkFallback size={size} />
       ) : (
@@ -67,8 +97,14 @@ export function TeamLogo({
           src={teamConfig.logoPath}
           width={size}
           height={size}
-          alt={`${teamConfig.teamName} logo`}
-          className="shrink-0 rounded-md"
+          alt={showName ? '' : teamConfig.teamName}
+          aria-hidden={showName || undefined}
+          /*
+           * The artwork sits on its own near-black plate. Rounding it and
+           * ringing it in a hairline turns that plate into a deliberate tile
+           * instead of a stray black square on the navy canvas.
+           */
+          className="shrink-0 rounded-lg bg-plate ring-1 ring-edge"
           style={{ width: size, height: size }}
           loading="eager"
           decoding="async"
@@ -76,25 +112,18 @@ export function TeamLogo({
         />
       )}
 
-      {showName && (
-        // `min-w-0` + `truncate` keep a long placeholder team number on one
-        // line instead of wrapping and pushing the header around.
-        <span className="flex min-w-0 flex-col leading-none">
-          <span
-            className={cn(
-              'truncate font-semibold tracking-[-0.01em] text-ink',
-              isHero ? 'text-lg' : 'text-base',
-            )}
-          >
-            {teamConfig.teamName}
-          </span>
-          {/* In the header there is little room beside the name, so the number
-              only appears once the viewport can spare the width. */}
-          <span
-            className={cn('kicker mt-1.5 truncate', isHero ? 'block' : 'hidden sm:block')}
-          >
-            {hasTeamNumber() ? `Team ${teamConfig.teamNumber}` : teamConfig.teamNumber}
-          </span>
+      {(showName || logoFailed) && (
+        <span className="truncate text-base font-semibold tracking-[-0.01em] text-ink">
+          {teamConfig.teamName}
+        </span>
+      )}
+
+      {/* Wrapped rather than restyled: `cn` is a plain join, so a `hidden`
+          passed straight to the chip would fight its own `inline-flex` and lose
+          on CSS order rather than on class order. */}
+      {showNumber && (
+        <span className={numberClassName}>
+          <TeamNumberChip />
         </span>
       )}
     </span>

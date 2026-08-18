@@ -57,7 +57,7 @@ export function RobotOverview() {
           <MediaFrame
             src="/images/robot-full.jpg"
             alt={`Full view of ${teamConfig.teamName}'s robot`}
-            label="/images/robot-full.jpg"
+            label="Robot photo — coming soon"
             icon={Bot}
             aspect="aspect-[4/3]"
             parallax

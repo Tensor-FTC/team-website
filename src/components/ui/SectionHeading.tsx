@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
-import { transitions, viewportOnce } from '../../config/motion'
-import { Reveal } from './Reveal'
+import { fadeUp, transitions, viewportOnce } from '../../config/motion'
+import { AnimatedHeading } from './AnimatedHeading'
 import { cn } from './cn'
 
 type SectionHeadingProps = {
@@ -21,19 +21,30 @@ type SectionHeadingProps = {
  *
  * The kicker is a plain monospace label with a short rule, not a floating pill —
  * it reads like a spec sheet rather than a marketing badge.
+ *
+ * Each part reveals itself rather than the block revealing as one: the rule
+ * draws in, the title resolves word by word, and the copy fades up behind it.
+ * Wrapping the whole thing in a single reveal would stack a lift on top of the
+ * title's own animation and read as mush.
  */
 export function SectionHeading({
   kicker,
   title,
   description,
-  level: Heading = 'h2',
+  level = 'h2',
   id,
   className,
 }: SectionHeadingProps) {
   return (
-    <Reveal className={cn('flex flex-col', className)} id={id}>
+    <div className={cn('flex flex-col', className)} id={id}>
       {kicker && (
-        <span className="mb-4 flex items-center gap-3">
+        <motion.span
+          className="mb-4 flex items-center gap-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeUp}
+        >
           {/* The rule draws itself in as the heading arrives. */}
           <motion.span
             aria-hidden="true"
@@ -44,21 +55,31 @@ export function SectionHeading({
             transition={{ ...transitions.base, delay: 0.1 }}
           />
           <span className="kicker text-signal">{kicker}</span>
-        </span>
+        </motion.span>
       )}
 
-      <Heading
+      <AnimatedHeading
+        as={level}
+        text={title}
+        stagger={45}
         className={cn(
           'font-semibold tracking-tight text-ink',
-          Heading === 'h2' ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl',
+          level === 'h2' ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl',
         )}
-      >
-        {title}
-      </Heading>
+      />
 
       {description && (
-        <div className="mt-3 max-w-2xl text-base leading-relaxed text-ink-soft">{description}</div>
+        <motion.div
+          className="mt-3 max-w-2xl text-base leading-relaxed text-ink-soft"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeUp}
+          transition={{ delay: 0.12 }}
+        >
+          {description}
+        </motion.div>
       )}
-    </Reveal>
+    </div>
   )
 }

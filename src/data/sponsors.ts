@@ -1,3 +1,5 @@
+import { isPlaceholder } from '../config/placeholders'
+
 /**
  * Team sponsors, grouped into tiers.
  *
@@ -138,7 +140,24 @@ export const sponsorshipLevels: SponsorshipLevel[] = [
   },
 ]
 
+/**
+ * Sponsors whose details have actually been filled in.
+ *
+ * The entries above are a worked example of the shape each tier expects, not a
+ * claim that anyone has signed up. Until a name replaces its placeholder the
+ * sponsor is not rendered — a wall of blank cards would read as sponsors we
+ * cannot name rather than sponsors we do not yet have.
+ */
+export function realSponsors(): Sponsor[] {
+  return sponsors.filter((sponsor) => !isPlaceholder(sponsor.name))
+}
+
 /** Sponsors in a given tier. */
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
-  return sponsors.filter((sponsor) => sponsor.tier === tier)
+  return realSponsors().filter((sponsor) => sponsor.tier === tier)
+}
+
+/** What to print for a tier whose price has not been decided yet. */
+export function sponsorshipAmount(level: SponsorshipLevel): string {
+  return isPlaceholder(level.amount) ? 'On request' : level.amount
 }

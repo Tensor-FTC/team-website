@@ -39,7 +39,7 @@ export default function AboutPage() {
             <MediaFrame
               src="/images/team-photo.jpg"
               alt={`${teamConfig.teamName} at a competition`}
-              label="Add /public/images/team-photo.jpg"
+              label="Team photo — coming soon"
               aspect="aspect-[4/3]"
               parallax
             />
@@ -49,12 +49,14 @@ export default function AboutPage() {
             <SectionHeading
               kicker="Our story"
               title="Started by students, run by students"
-              description="Placeholder copy — replace this with how Tensor actually came together: who started it, what you wanted to build, and why you picked robotics."
+              description="Tensor started in 2026 with seven students, no workshop and no parts — just a group that wanted to build something that moves and a season to get ready for."
             />
             <Reveal delay={0.1} className="flex flex-col gap-4 text-base leading-relaxed text-ink-soft">
               <p>
-                Placeholder paragraph — describe a typical week: when you meet, how work splits
-                between software, hardware and outreach, and how decisions get made.
+                We run as an independent community team rather than out of a school, which means we
+                pick our own hours, find our own space and answer for our own decisions. The work
+                splits three ways — software, hardware and outreach — and with seven of us, nobody
+                stays in one lane for long.
               </p>
               <p>
                 Being a rookie team means we get to decide how we work from scratch. We are spending
@@ -104,7 +106,7 @@ export default function AboutPage() {
         <SectionHeading
           kicker="Recognition"
           title="Awards and results"
-          description="We have not competed yet, so there is nothing here. Add entries to src/data/statistics.ts as they come and this section fills itself in."
+          description="We have not competed yet, so this page is empty on purpose. It fills in as the season does."
         />
 
         {awards.length === 0 ? (

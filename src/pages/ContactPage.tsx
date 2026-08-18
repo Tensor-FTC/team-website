@@ -6,7 +6,7 @@ import { ContactForm } from '../components/sections/ContactForm'
 import { Panel } from '../components/ui/Panel'
 import { Reveal } from '../components/ui/Reveal'
 import { socialMeta } from '../components/ui/socialMeta'
-import { activeSocialLinks, teamConfig } from '../config/teamConfig'
+import { activeSocialLinks, meetingSummary, teamConfig } from '../config/teamConfig'
 
 type Detail = {
   label: string
@@ -18,6 +18,8 @@ type Detail = {
 export default function ContactPage() {
   const socials = activeSocialLinks()
 
+  const meeting = meetingSummary()
+
   const details: Detail[] = [
     {
       label: 'Email',
@@ -27,11 +29,9 @@ export default function ContactPage() {
     },
     { label: 'Team', value: teamConfig.orgLabel, icon: Users },
     { label: 'Location', value: teamConfig.location, icon: MapPin },
-    {
-      label: 'We meet',
-      value: `${teamConfig.meetingSchedule} · ${teamConfig.meetingLocation}`,
-      icon: CalendarClock,
-    },
+    // Dropped entirely until there is a real schedule to publish — a row
+    // reading MEETING_SCHEDULE_PLACEHOLDER tells a visitor nothing.
+    ...(meeting ? [{ label: 'We meet', value: meeting, icon: CalendarClock }] : []),
   ]
 
   return (
@@ -114,15 +114,9 @@ export default function ContactPage() {
                 </ul>
               ) : (
                 <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-                  Social links have not been added yet. Fill in{' '}
-                  <code className="rounded-md border border-edge bg-surface-high px-1.5 py-0.5 font-mono text-xs break-all">
-                    socialLinks
-                  </code>{' '}
-                  in{' '}
-                  <code className="rounded-md border border-edge bg-surface-high px-1.5 py-0.5 font-mono text-xs break-all">
-                    src/config/teamConfig.ts
-                  </code>{' '}
-                  and they will appear here and in the footer.
+                  We have not set up our social accounts yet. Until we do, email
+                  is the fastest way to reach us — and the best way to hear how
+                  our first season goes.
                 </p>
               )}
             </Panel>
@@ -131,8 +125,9 @@ export default function ContactPage() {
             <Panel padding="md" tone="flat">
               <h2 className="text-lg font-semibold tracking-tight text-ink">Thinking of joining?</h2>
               <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
-                Placeholder copy. Explain who is eligible, when recruitment opens, and what a new
-                member's first few weeks look like.
+                We are a small team and we are still growing. If you are a student in the Redmond
+                area who wants to build, program or run outreach, tell us a little about yourself
+                using the form — no robotics experience needed.
               </p>
             </Panel>
           </Reveal>
