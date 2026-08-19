@@ -15,6 +15,21 @@ export const ftcHome = {
   status: 'In development',
   /** Public repository. Built in the open, so the code is readable before it ships. */
   repo: 'https://github.com/Tensor-FTC/FTCHome',
+  /**
+   * The long-form write-up, for anyone who wants more than this page gives.
+   *
+   * `size` and `pages` are stated up front because the file is a few megabytes
+   * — worth knowing before you tap it on phone data.
+   */
+  document: {
+    title: 'FTC Home — Sponsor Overview',
+    summary:
+      'The full write-up: why we built it, what each screen does, how the data and security model work, and what sponsorship pays for.',
+    file: '/documents/ftc-home-sponsor-overview.pdf',
+    cover: '/images/documents/ftc-home-sponsor-overview-cover.jpg',
+    pages: 13,
+    size: '3.7 MB',
+  },
   description:
     'Running a team is a bookkeeping problem as much as an engineering one. Sponsor money arrives in pieces, parts orders pile up, registration and event deadlines land in the middle of build season, and most teams track all of it across a few spreadsheets and a group chat.',
   secondaryDescription:

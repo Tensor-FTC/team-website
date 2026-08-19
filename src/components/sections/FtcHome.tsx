@@ -4,6 +4,7 @@ import { ftcHome, resources } from '../../data/resources'
 import { Section } from '../layout/Section'
 import { ButtonExternal } from '../ui/Button'
 import { ComingSoon } from '../ui/ComingSoon'
+import { DocumentPanel } from '../ui/DocumentPanel'
 import { Panel } from '../ui/Panel'
 import { Pill } from '../ui/Pill'
 import { Reveal, RevealGroup, RevealItem } from '../ui/Reveal'
@@ -74,6 +75,25 @@ export function FtcHomeFeature() {
             </RevealGroup>
           </div>
         </div>
+      </Section>
+
+      <Section spacing="md">
+        <SectionHeading
+          kicker="Go deeper"
+          title="Want more information?"
+          description="This page is the short version. We wrote a full overview for sponsors and anyone else who wants the detail — read it below, or take it with you."
+        />
+
+        <Reveal className="mt-10">
+          <DocumentPanel
+            title={ftcHome.document.title}
+            summary={ftcHome.document.summary}
+            file={ftcHome.document.file}
+            cover={ftcHome.document.cover}
+            pages={ftcHome.document.pages}
+            size={ftcHome.document.size}
+          />
+        </Reveal>
       </Section>
     </>
   )
