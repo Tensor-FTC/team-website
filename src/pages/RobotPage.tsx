@@ -16,7 +16,7 @@ export default function RobotPage() {
       <PageHeader
         kicker="The robot"
         title={`Meet ${robotName}`}
-        description={`Singularity is our offseason build for ${teamConfig.offseasonGame} — a whole robot, start to finish, as practice before the ${teamConfig.seasonGame} season. It is still being designed. Here is what we are working out.`}
+        description={`${robotName} is our offseason build for ${teamConfig.offseasonGame} — a whole robot, start to finish, as practice before the ${teamConfig.seasonGame} season. It is still being designed. Here is what we are working out.`}
       />
 
       <RobotOverview />

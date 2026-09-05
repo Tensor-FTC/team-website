@@ -1,7 +1,7 @@
 /**
  * Our robots.
  *
- * Singularity is our offseason build for DECODE — the game from the season
+ * Fable is our offseason build for DECODE — the game from the season
  * before ours. It is practice: a whole robot, start to finish, so that the
  * BIOBUZZ season is not also our first attempt at building anything.
  *
@@ -15,9 +15,9 @@
 import { teamConfig } from '../config/teamConfig'
 
 /** Our offseason robot's name. */
-export const robotName = 'Singularity'
+export const robotName = 'Fable'
 
-/** The game Singularity is built for. */
+/** The game Fable is built for. */
 export const robotGame = teamConfig.offseasonGame
 
 /** Flip to 'released' once there is a finished robot to show. */

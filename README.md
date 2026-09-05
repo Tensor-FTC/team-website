@@ -105,10 +105,10 @@ mostly names, your school, and contact details.
 Because the site reads from those files, several sections change on their own:
 
 - **The robot.** `robotStatus` in `robotFeatures.ts` is `'coming-soon'`, so `/robot` shows
-  the Singularity reveal notice. Set it to `'released'`, fill in `robotSpecs` and add
+  the Fable reveal notice. Set it to `'released'`, fill in `robotSpecs` and add
   `/public/images/robot-full.jpg`, and the page becomes the normal photo-and-specs layout.
 - **Season names.** `seasonGame` (BIOBUZZ, the season we compete in) and `offseasonGame`
-  (DECODE, what Singularity is built for) live in `teamConfig.ts` and are used everywhere
+  (DECODE, what Fable is built for) live in `teamConfig.ts` and are used everywhere
   those names appear.
 - **No parent organisation.** `school` is blank, so anywhere it would appear falls back to
   `orgLabel` ("Independent community team"). Fill in `school` and it takes over.

@@ -38,11 +38,11 @@ export const projectStatusLabels: Record<ProjectStatus, string> = {
 
 export const projects: Project[] = [
   {
-    id: 'project-singularity',
-    title: 'Singularity — offseason DECODE robot',
+    id: 'project-fable',
+    title: 'Fable — offseason DECODE robot',
     summary: 'A full robot for DECODE, built as practice before the BIOBUZZ season starts.',
     description:
-      'Singularity is a complete robot for DECODE, the game from the season before ours. Nothing about it is judged, which is exactly the point — it gets us through the whole cycle once (strategy, CAD, fabrication, code, driver practice) so that our first competition season is not also our first attempt at building a robot.',
+      'Fable is a complete robot for DECODE, the game from the season before ours. Nothing about it is judged, which is exactly the point — it gets us through the whole cycle once (strategy, CAD, fabrication, code, driver practice) so that our first competition season is not also our first attempt at building a robot.',
     status: 'active',
     period: 'Offseason 2026',
     tags: ['Hardware', 'Software'],

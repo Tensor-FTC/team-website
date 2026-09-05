@@ -9,7 +9,7 @@ import { cn } from './cn'
 type ComingSoonProps = {
   /** Small label above the title, e.g. "Offseason DECODE robot". */
   kicker?: string
-  /** The thing being revealed, e.g. "Singularity". */
+  /** The thing being revealed, e.g. "Fable". */
   title: string
   /** One or two sentences on what it is and when to expect it. */
   description: ReactNode
@@ -29,7 +29,7 @@ const CORNERS = [
 /**
  * A reveal notice for work that is not finished yet.
  *
- * Used for Singularity and FTCHome. The corner brackets, the slow scanline and
+ * Used for Fable and FTCHome. The corner brackets, the slow scanline and
  * the network graph behind it make an unfinished thing read as deliberate
  * rather than as an empty page. The scanline is skipped under reduced motion.
  */
